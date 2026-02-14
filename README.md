@@ -1,29 +1,32 @@
-# 🎨 AI-Creative-Studio-2026
+# 🌌 AI Mega Studio 2026 (FLUX Edition)
 
-An advanced AI-powered multimedia studio for professional high-fidelity image synthesis and cinematic video generation.
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Python](https://img.shields.io/badge/python-3.9%2B-brightgreen.svg)
+![Gradio](https://img.shields.io/badge/UI-Gradio-orange.svg)
+
+**AI Mega Studio** هو تطبيق ويب متطور يعتمد على أحدث تقنيات الذكاء الاصطناعي لتوليد الصور (Generative AI). يستخدم التطبيق نموذج **FLUX.1-schnell** الأقوى حالياً لتقديم صور فائقة الدقة بناءً على الأوصاف النصية مع نظام ستايلات ذكي.
 
 ---
 
-## 🚀 Key Features
-- **🖼️ Image Generation:** High-resolution 8K imagery using **SDXL** & **Flux.1**.
-- **🎬 Video Synthesis:** Cinematic video clips powered by **Stable Video Diffusion (SVD)**.
-- **✨ Professional Upscaling:** Built-in AI upscalers for ultra-sharp results.
-- **⚡ Fast Inference:** Optimized for high-performance GPU environments.
-- **🌐 Web Interface:** Seamless and intuitive UI built with **Streamlit**.
+## ✨ المميزات (Features)
+* **محرك FLUX.1:** توليد صور بدقة مذهلة تتفوق على الموديلات التقليدية.
+* **نظام الستايلات:** أكثر من 7 ستايلات فنية جاهزة (سينمائي، أنمي، سايبربانك، إلخ).
+* **تحسين الأوصاف:** نظام تلقائي لتحسين الـ Prompt لضمان أفضل نتيجة.
+* **واجهة مستخدم عصرية:** تصميم مريح وسريع باستخدام Gradio.
+* **دعم الفيديو (تجريبي):** ربط أولي لتحريك الصور وتحويلها لفيديو.
 
-## 🛠️ Tech Stack
-- **Language:** Python 3.10+
-- **Deep Learning:** PyTorch, Diffusers, Transformers.
-- **UI Framework:** Streamlit.
-- **Model Support:** Hugging Face Models.
+## 🚀 طريقة التشغيل (How to Run)
 
-## 📦 Quick Installation
+### 1. المتطلبات (Prerequisites)
+يجب أن يكون لديك مفتاح API من Hugging Face (Token).
+
+### 2. التثبيت (Installation)
 ```bash
-# Clone the repository
-git clone [https://github.com/YOUR_USERNAME/AI-Creative-Studio-2026.git](https://github.com/YOUR_USERNAME/AI-Creative-Studio-2026.git)
+# استنساخ المستودع
+git clone [https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git](https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git)
 
-# Install dependencies
+# الدخول للمجلد
+cd YOUR_REPO_NAME
+
+# تثبيت المكتبات المطلوبة
 pip install -r requirements.txt
-
-# Run the app
-streamlit run app.py
