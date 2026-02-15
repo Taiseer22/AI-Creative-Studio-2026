@@ -23,7 +23,7 @@
 ### 2. التثبيت (Installation)
 ```bash
 # استنساخ المستودع
-git clone [https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git](https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git)
+git clone [https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git](https://github.com/YOUR_TAESEER22/YOUR_REPO_NAME.git)
 
 # الدخول للمجلد
 cd YOUR_REPO_NAME
