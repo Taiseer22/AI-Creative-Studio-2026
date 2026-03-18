@@ -29,4 +29,4 @@ git clone [https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git](https://github.c
 cd YOUR_REPO_NAME
 
 # تثبيت المكتبات المطلوبة
-pip install -r requirements.txt
+pip install -r requirements.txt 
