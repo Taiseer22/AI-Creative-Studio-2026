@@ -4,40 +4,65 @@ import io
 from PIL import Image
 import os
 
-# --- إعدادات الواجهة ---
-st.set_page_config(page_title="استوديو الذكاء الاصطناعي 2026", layout="wide")
+st.set_page_config(page_title="AI Creative Studio 2026", page_icon="🎨")
 st.title("🎨 AI-Creative-Studio-2026")
+st.write("ولّد صور سينمائية بـ Stable Diffusion XL")
 
-# --- الحصول على المفتاح من إعدادات النظام ---
-# ملاحظة: إذا كنت تجرب على جهازك الشخصي، استبدل os.getenv بـ "توكن_الخاص_بك"
-HF_TOKEN = os.getenv("HF_TOKEN") 
+HF_TOKEN = st.secrets.get("HF_TOKEN", "") if hasattr(st, 'secrets') else os.getenv("HF_TOKEN", "")
 
-# رابط المحرك (سأختار لك أقوى موديل صور حالياً)
-API_URL = "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0"
+API_URL = "https://router.huggingface.co/hf-inference/models/stabilityai/stable-diffusion-xl-base-1.0"
 headers = {"Authorization": f"Bearer {HF_TOKEN}"}
 
+if "gallery" not in st.session_state:
+    st.session_state.gallery = []
+
 def query(payload):
-    response = requests.post(API_URL, headers=headers, json=payload)
-    if response.status_code != 200:
-        st.error(f"خطأ في الاتصال بالسحابة: {response.text}")
+    try:
+        r = requests.post(API_URL, headers=headers, json=payload, timeout=120)
+        r.raise_for_status()
+        return r.content
+    except Exception as e:
+        txt = r.text[:500] if 'r' in locals() and hasattr(r, 'text') else str(e)
+        st.error(f"خطأ: {txt}")
         return None
-    return response.content
 
-# --- واجهة المستخدم ---
 with st.sidebar:
-    st.header("إعدادات التصميم")
-    style = st.selectbox("نمط الصورة", ["سينمائي", "واقعي", "رسم رقمي", "أنمي"])
+    st.header("Taiseer22 Studio")
+    style = st.selectbox("النمط", ["سينمائي", "واقعي", "رسم رقمي", "انمي"])
+    st.divider()
+    st.info("تأكد من اضافة HF_TOKEN في Streamlit Secrets")
 
-prompt = st.text_area("أدخل وصف الصورة بالتفصيل (بالإنجليزي):", 
-                     "A futuristic luxury car driving through a neon city at night, 8k, hyper-realistic.")
+style_map = {
+    "سينمائي": "cinematic, dramatic lighting, 8k, ultra detailed",
+    "واقعي": "photorealistic, hyper-realistic, ultra detailed",
+    "رسم رقمي": "digital painting, artstation trending",
+    "انمي": "anime style, studio ghibli"
+}
 
-if st.button("توليد الصورة فوراً ✨"):
+prompt = st.text_area("الوصف (انجليزي):", "A futuristic luxury car in Amman at night, cinematic lighting", height=100)
+
+if st.button("توليد الصورة فوراً ✨", type="primary", use_container_width=True):
     if not HF_TOKEN:
-        st.warning("تحذير: لم يتم العثور على مفتاح HF_TOKEN. تأكد من إضافته في Secrets.")
-    else:
-        with st.spinner("جاري التواصل مع الخوادم السحابية..."):
-            image_bytes = query({"inputs": prompt})
-            if image_bytes:
-                image = Image.open(io.BytesIO(image_bytes))
-                st.image(image, caption="تم التوليد بواسطة استوديو 2026", use_column_width=True)
-                st.success("تم التوليد بنجاح في ثوانٍ!")
+        st.warning("ضيف HF_TOKEN في Secrets")
+        st.stop()
+    final_prompt = f"{prompt}, {style_map[style]}"
+    with st.spinner("جاري التوليد... انتظر 30 ثانية"):
+        img_bytes = query({"inputs": final_prompt})
+        if img_bytes:
+            try:
+                image = Image.open(io.BytesIO(img_bytes))
+                st.session_state.gallery.insert(0, image)
+                st.image(image, caption="تم!")
+                buf = io.BytesIO()
+                image.save(buf, format="PNG")
+                st.download_button("📥 حمل", buf.getvalue(), "taiseer22.png", "image/png")
+            except:
+                st.error("الموديل لسه بصحى، جرب بعد 20 ثانية")
+
+if st.session_state.gallery:
+    st.divider()
+    st.subheader(f"📸 معرضك - {len(st.session_state.gallery)} صورة")
+    cols = st.columns(3)
+    for i, img in enumerate(st.session_state.gallery):
+        with cols[i % 3]:
+            st.image(img, use_container_width=True)
