@@ -46,3 +46,23 @@ prompt = st.text_area("أدخل وصف الصورة بالتفصيل (بالإن
                      height=100)
 
 if st.button("توليد الصورة فوراً ✨", type
+if st.button("توليد الصورة فوراً ✨", type="primary", use_container_width=True):
+    if not HF_TOKEN:
+        st.warning("⚠️ لم يتم العثور على HF_TOKEN")
+        st.stop()
+        
+    final_prompt = f"{prompt}, {style_map.get(style, '')}"
+    
+    with st.spinner("🎨 جاري التوليد..."):
+        image_bytes = query({"inputs": final_prompt})
+        if image_bytes:
+            try:
+                image = Image.open(io.BytesIO(image_bytes))
+                st.image(image, caption=f"النمط: {style}", use_container_width=True)
+                st.success("تم بنجاح!")
+                
+                buf = io.BytesIO()
+                image.save(buf, format="PNG")
+                st.download_button("📥 حمّل الصورة", buf.getvalue(), "AI_Studio_2026.png", "image/png", use_container_width=True)
+            except Exception:
+                st.error("الموديل نايم، جرب بعد 20 ثانية")
