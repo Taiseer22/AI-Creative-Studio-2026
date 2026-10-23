@@ -1,0 +1,5 @@
+[FORMAT]
+max-line-length=120
+
+[MESSAGES CONTROL]
+disable=trailing-whitespace,missing-module-docstring,missing-function-docstring,import-error,wrong-import-order,broad-exception-caught,consider-using-set-comprehension,no-else-return,no-else-continue,unused-argument,superfluous-parens,unused-import,line-too-long
