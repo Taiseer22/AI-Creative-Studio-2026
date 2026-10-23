@@ -44,8 +44,6 @@ style_map = {
 prompt = st.text_area("أدخل وصف الصورة بالتفصيل (بالإنجليزي):", 
                      "A futuristic luxury car driving through a neon city at night, rain reflection",
                      height=100)
-
-if st.button("توليد الصورة فوراً ✨", type
 if st.button("توليد الصورة فوراً ✨", type="primary", use_container_width=True):
     if not HF_TOKEN:
         st.warning("⚠️ لم يتم العثور على HF_TOKEN")
