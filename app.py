@@ -12,7 +12,7 @@ st.caption("ولّد صور سينمائية بـ Stable Diffusion XL")
 # --- الحصول على المفتاح ---
 HF_TOKEN = os.getenv("HF_TOKEN") or st.secrets.get("HF_TOKEN", None)
 
-API_URL = "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0"
+API_URL = "API_URL = "https://router.huggingface.co/hf-inference/models/stabilityai/stable-diffusion-xl-base-1.0""
 headers = {"Authorization": f"Bearer {HF_TOKEN}"} if HF_TOKEN else {}
 
 def query(payload):
